@@ -107,9 +107,9 @@ WHITESPACE	= 0 /* Fill-in here. */
 <YYINITIAL>{NEWLINE}	 { /* Fill-in here. */ }
 <YYINITIAL>{WHITESPACE}+ { /* Fill-in here. */ }
 
-<YYINITIAL>"--"         { /* Fill-in here. */ }
-<LINE_COMMENT>.*        { /* Fill-in here. */ }
-<LINE_COMMENT>\n        { /* Fill-in here. */ }
+<YYINITIAL>"--"         { yybegin(LINE_COMMENT); }
+<LINE_COMMENT>.*        { /* Skip */ }
+<LINE_COMMENT>\n        { yybegin(YYINITIAL); }
 
 
 
