@@ -59,13 +59,12 @@ import java_cup.runtime.Symbol;
     switch(yy_lexical_state) {
     case YYINITIAL:
 	/* nothing special to do in the initial state */
-	break;
+        break;
 
-/* If necessary, add code for other states here, e.g:
+/* If necessary, add code for other states here, e.g:*/
     case LINE_COMMENT:
-	   ...
+	   
 	   break;
- */
     }
     return new Symbol(TokenConstants.EOF);
 %eofval}
