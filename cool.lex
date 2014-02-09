@@ -59,12 +59,13 @@ import java_cup.runtime.Symbol;
     switch(yy_lexical_state) {
     case YYINITIAL:
 	/* nothing special to do in the initial state */
-        break;
+	break;
 
-/* If necessary, add code for other states here, e.g:*/
+/* If necessary, add code for other states here, e.g:
     case LINE_COMMENT:
-	   
+	   ...
 	   break;
+ */
     }
     return new Symbol(TokenConstants.EOF);
 %eofval}
@@ -106,14 +107,16 @@ WHITESPACE	= 0 /* Fill-in here. */
 <YYINITIAL>{NEWLINE}	 { /* Fill-in here. */ }
 <YYINITIAL>{WHITESPACE}+ { /* Fill-in here. */ }
 
-<YYINITIAL>"--"         { yybegin(LINE_COMMENT); }
-<LINE_COMMENT>.*        { /* Skip */ }
-<LINE_COMMENT>\n        { yybegin(YYINITIAL); }
+<YYINITIAL>"--"         { /* Fill-in here. */ }
+<LINE_COMMENT>.*        { /* Fill-in here. */ }
+<LINE_COMMENT>\n        { /* Fill-in here. */ }
 
 
 
+/* Changes made here.*/
+<YYINITIAL>","          { return new Symbol(TokenConstants.COMMA);  }
 
-
+/* End of my changes. */
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 
 
