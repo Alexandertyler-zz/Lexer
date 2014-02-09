@@ -80,12 +80,32 @@ VTAB            = \x0b
 /* Define names for regular expressions here. */
 NEWLINE		= \n
 WHITESPACE	= 0 /* Fill-in here. */
+/*  IF = if */
+LINE_COMMENT = [\-][\-][^\n]*[\n]
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* This defines a new start condition for line comments.
  * .
  * Hint: You might need additional start conditions. */
-%state LINE_COMMENT
+%state COMMENT
+
+
+
+
+%state STRING
+
+
 
 
 /* Define lexical rules after the %% separator.  There is some code
@@ -104,19 +124,12 @@ WHITESPACE	= 0 /* Fill-in here. */
  * Reference Manual (CoolAid).  Please be sure to look there. */
 %%
 
-<YYINITIAL>{NEWLINE}	 { /* Fill-in here. */ }
-<YYINITIAL>{WHITESPACE}+ { /* Fill-in here. */ }
+<YYINITIAL>{NEWLINE}	 { /* Skip */ }
+<YYINITIAL>{WHITESPACE}+ { /* Skip */ }
 
-<YYINITIAL>"--"         { /* Fill-in here. */ }
-<LINE_COMMENT>.*        { /* Fill-in here. */ }
-<LINE_COMMENT>\n        { /* Fill-in here. */ }
+<YYINITIAL>{LINE_COMMENT}  { System.out.println("Skipped line comment"); }
 
 
-
-/* Changes made here.*/
-<YYINITIAL>","          { return new Symbol(TokenConstants.COMMA);  }
-
-/* End of my changes. */
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 
 
@@ -126,7 +139,6 @@ WHITESPACE	= 0 /* Fill-in here. */
 <YYINITIAL>[0-9][0-9]*  { /* Integers */
                           return new Symbol(TokenConstants.INT_CONST,
 					    AbstractTable.inttable.addString(yytext())); }
-
 
 
 
