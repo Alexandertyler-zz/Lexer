@@ -19,7 +19,8 @@ import java_cup.runtime.Symbol;
 
     // For assembling string constants
     StringBuffer string_buf = new StringBuffer();
-
+    // For nested comments
+    int commentdepth = 0;
     // For line numbers
     private int curr_lineno = 1;
     int get_curr_lineno() {
@@ -82,7 +83,7 @@ NEWLINE		= \n
 WHITESPACE	= 0 /* Fill-in here. */
 /*  IF = if */
 LINE_COMMENT = [\-][\-][^\n]*[\n]
-
+OPEN_COMMENT = [(*]
 
 
 
@@ -99,8 +100,8 @@ LINE_COMMENT = [\-][\-][^\n]*[\n]
  * .
  * Hint: You might need additional start conditions. */
 %state COMMENT
-
-
+CLOSE_COMMENT = [*)]
+OPEN_COMMENT = [(*]
 
 
 %state STRING
@@ -128,8 +129,18 @@ LINE_COMMENT = [\-][\-][^\n]*[\n]
 <YYINITIAL>{WHITESPACE}+ { /* Skip */ }
 
 <YYINITIAL>{LINE_COMMENT}  { System.out.println("Skipped line comment"); }
+<YYINITIAL>{OPEN_COMMENT}  { commentdepth += 1; System.out.println("Starting a comment."); yybegin(COMMENT); }
+//read through comment text and ignore it, but look for opening and closing markers
+<COMMENT>{} { /* skip */ }
+<COMMENT>{OPEN_COMMENT} { commentdepth += 1; System.out.println("comment ina comment"); }
+<COMMENT>{CLOSE_COMMENT} { 
+    commentdepth -= 1;
+    if commentdepth == 1:
+        System.out.println("back to initial");
+        yybegin(YYINITIAL);
+}
 
-
+    
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 
 
