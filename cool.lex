@@ -40,6 +40,7 @@ import java_cup.runtime.Symbol;
     /*
      * Add extra field and methods here.
      */
+
 %}
 
 
@@ -81,10 +82,9 @@ VTAB            = \x0b
 /* Define names for regular expressions here. */
 NEWLINE		= \n
 WHITESPACE	= 0 /* Fill-in here. */
-/*  IF = if */
-LINE_COMMENT = [\-][\-][^\n]*[\n]
-OPEN_COMMENT = [(*]
-
+LINE_COMMENT = "--"[^\n]*\n
+OPEN_COMMENT = "(*"
+CLOSE_COMMENT = "*)"
 
 
 
@@ -99,13 +99,16 @@ OPEN_COMMENT = [(*]
 /* This defines a new start condition for line comments.
  * .
  * Hint: You might need additional start conditions. */
-%state COMMENT
-CLOSE_COMMENT = [*)]
-OPEN_COMMENT = [(*]
 
+
+%state COMMENT
+CLOSE_COMMENT = "*)"
+OPEN_COMMENT = "(*"
+NEWLINE = \n
+CONTENT = [^"*)"][^"(*"][^\n]*
 
 %state STRING
-
+STRING_W_QUOTES = [^\"]*[\"] 
 
 
 
@@ -125,20 +128,23 @@ OPEN_COMMENT = [(*]
  * Reference Manual (CoolAid).  Please be sure to look there. */
 %%
 
-<YYINITIAL>{NEWLINE}	 { /* Skip */ }
+<YYINITIAL>{NEWLINE}	 { curr_lineno += 1; }
 <YYINITIAL>{WHITESPACE}+ { /* Skip */ }
 
-<YYINITIAL>{LINE_COMMENT}  { System.out.println("Skipped line comment"); }
+<YYINITIAL>{LINE_COMMENT}  { System.out.println("Skipped line comment"); curr_lineno += 1; }
 <YYINITIAL>{OPEN_COMMENT}  { commentdepth += 1; System.out.println("Starting a comment."); yybegin(COMMENT); }
-//read through comment text and ignore it, but look for opening and closing markers
-<COMMENT>{} { /* skip */ }
+
+<COMMENT>{NEWLINE} { curr_lineno += 1; }
 <COMMENT>{OPEN_COMMENT} { commentdepth += 1; System.out.println("comment ina comment"); }
 <COMMENT>{CLOSE_COMMENT} { 
     commentdepth -= 1;
-    if commentdepth == 1:
+    if (commentdepth == 0) {
         System.out.println("back to initial");
         yybegin(YYINITIAL);
+    }    
 }
+<COMMENT>{CONTENT} { System.out.println("Skipping comment: " +  yytext()); }
+
 
     
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
