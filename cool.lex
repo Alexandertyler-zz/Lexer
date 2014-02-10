@@ -23,12 +23,14 @@ import java_cup.runtime.Symbol;
     int commentdepth = 0;
     // For line numbers
     private int curr_lineno = 1;
+    // EOF reached
+    private boolean eof_reached = false;
     int get_curr_lineno() {
 	return curr_lineno;
     }
 
     private AbstractSymbol filename;
-
+    
     void set_filename(String fname) {
 	filename = AbstractTable.stringtable.addString(fname);
     }
@@ -63,11 +65,17 @@ import java_cup.runtime.Symbol;
 	/* nothing special to do in the initial state */
 	break;
 
-/* If necessary, add code for other states here, e.g:
-    case LINE_COMMENT:
-	   ...
-	   break;
- */
+        /* If necessary, add code for other states here, e.g: */
+    case COMMENT: 
+        if (!eof_reached) {
+            eof_reached = true;
+            return new Symbol(TokenConstants.ERROR, "EOF before closed comment");
+        } else break;
+    case STRING:
+        if (!eof_reached) {
+            eof_reached = true;
+            return new Symbol(TokenConstants.ERROR, "EOF before closed string");
+        } else break;
     }
     return new Symbol(TokenConstants.EOF);
 %eofval}
@@ -76,15 +84,13 @@ import java_cup.runtime.Symbol;
 %class CoolLexer
 %cup
 
-/* Jlex doesn't understand \v, so use {VTAB} instead. */
-VTAB            = \x0b
-
+VTAB = \x0b
 /* Define names for regular expressions here. */
-NEWLINE		= \n
-WHITESPACE	= 0 /* Fill-in here. */
+NEWLINE		= [\n]
+WHITESPACE	= [" "|\b|\t|\r|\f|\x0b]+ /* Fill-in here. */
 LINE_COMMENT = "--"[^\n]*\n
 OPEN_COMMENT = "(*"
-CLOSE_COMMENT = "*)"
+    //CLOSE_COMMENT = "*)"
 
 
 
@@ -105,7 +111,7 @@ CLOSE_COMMENT = "*)"
 CLOSE_COMMENT = "*)"
 OPEN_COMMENT = "(*"
 NEWLINE = \n
-CONTENT = [^"*)"][^"(*"][^\n]*
+CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
 STRING_W_QUOTES = [^\"]*[\"] 
@@ -128,13 +134,13 @@ STRING_W_QUOTES = [^\"]*[\"]
  * Reference Manual (CoolAid).  Please be sure to look there. */
 %%
 
-<YYINITIAL>{NEWLINE}	 { curr_lineno += 1; }
-<YYINITIAL>{WHITESPACE}+ { /* Skip */ }
-
+<YYINITIAL>\n	 { curr_lineno += 1; System.out.println("newline in initial");}
+<YYINITIAL>{WHITESPACE} { /* Skip */ }
+<YYINITIAL>{VTAB} { curr_lineno + 1; }
 <YYINITIAL>{LINE_COMMENT}  { System.out.println("Skipped line comment"); curr_lineno += 1; }
 <YYINITIAL>{OPEN_COMMENT}  { commentdepth += 1; System.out.println("Starting a comment."); yybegin(COMMENT); }
 
-<COMMENT>{NEWLINE} { curr_lineno += 1; }
+<COMMENT>{NEWLINE} { curr_lineno += 1; System.out.println("newline"); }
 <COMMENT>{OPEN_COMMENT} { commentdepth += 1; System.out.println("comment ina comment"); }
 <COMMENT>{CLOSE_COMMENT} { 
     commentdepth -= 1;
