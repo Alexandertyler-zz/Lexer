@@ -91,7 +91,8 @@ WHITESPACE	= [" "|\b|\t|\r|\f|\x0b]+ /* Fill-in here. */
 LINE_COMMENT = "--"[^\n]*\n
 OPEN_COMMENT = "(*"
     //CLOSE_COMMENT = "*)"
-
+OBJECT_ID = [a-z][0-9a-zA-Z_]*
+TYPE_ID = [A-Z][0-9a-zA-Z_]*
 
 
 
@@ -134,22 +135,26 @@ STRING_W_QUOTES = [^\"]*[\"]
  * Reference Manual (CoolAid).  Please be sure to look there. */
 %%
 
-<YYINITIAL>\n	 { curr_lineno += 1; System.out.println("newline in initial");}
-<YYINITIAL>{WHITESPACE} { /* Skip */ }
+<YYINITIAL>{NEWLINE}	 { curr_lineno += 1; } 
+<YYINITIAL>{WHITESPACE} { /* Skip */ } 
 <YYINITIAL>{VTAB} { curr_lineno + 1; }
-<YYINITIAL>{LINE_COMMENT}  { System.out.println("Skipped line comment"); curr_lineno += 1; }
-<YYINITIAL>{OPEN_COMMENT}  { commentdepth += 1; System.out.println("Starting a comment."); yybegin(COMMENT); }
+<YYINITIAL>{LINE_COMMENT}  {  
+    curr_lineno += 1; 
+} 
+<YYINITIAL>{OPEN_COMMENT}  {
+    commentdepth += 1; 
+    yybegin(COMMENT);
+}
 
-<COMMENT>{NEWLINE} { curr_lineno += 1; System.out.println("newline"); }
-<COMMENT>{OPEN_COMMENT} { commentdepth += 1; System.out.println("comment ina comment"); }
+<COMMENT>{NEWLINE} { curr_lineno += 1; }
+<COMMENT>{OPEN_COMMENT} { commentdepth += 1; }
 <COMMENT>{CLOSE_COMMENT} { 
     commentdepth -= 1;
     if (commentdepth == 0) {
-        System.out.println("back to initial");
         yybegin(YYINITIAL);
     }    
 }
-<COMMENT>{CONTENT} { System.out.println("Skipping comment: " +  yytext()); }
+<COMMENT>{CONTENT} { }
 
 
     
@@ -187,7 +192,12 @@ STRING_W_QUOTES = [^\"]*[\"]
 <YYINITIAL>t[Rr][Uu][Ee]	{ return new Symbol(TokenConstants.BOOL_CONST, Boolean.TRUE); }
 <YYINITIAL>[Ww][Hh][Ii][Ll][Ee] { return new Symbol(TokenConstants.WHILE); }
 
-
+<YYINITIAL>{OBJECT_ID}  {
+    return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
+}
+<YYINITIAL>{TYPE_ID}  {
+    return new Symbol(TokenConstants.TYPEID, AbstractTable.idtable.addString(yytext()));
+}
 
 
 
