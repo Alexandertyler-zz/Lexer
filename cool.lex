@@ -114,8 +114,8 @@ CONTENT = [^"*)"|^"(*"|^\n]
 
 
 %state STRING
-STR_CONTENT = [^\"|^\\n|^\\x00]
-NEWLINE = \\n //this is okay because it is an escaped newline
+STR_CONTENT = [^\"|^\\\n|^\\\x00]
+NEWLINE = \n //this is okay because it is an escaped newline
               //you still add the newline into the string though
     //NULL = \\x00
 CLOSE_STRING = \"
@@ -171,7 +171,7 @@ CLOSE_STRING = \"
 
 <STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
 
-<STRING>{NEWLINE} { curr_lineno += 1; string_buf.append("/n"); }
+<STRING>{NEWLINE} { curr_lineno += 1; string_buf.append("\n"); }
 
 <STRING>{CLOSE_STRING} { yybegin(YYINITIAL); 
                         String output = string_buf.toString();
