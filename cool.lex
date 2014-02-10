@@ -93,7 +93,7 @@ OPEN_COMMENT = "(*"
     //CLOSE_COMMENT = "*)"
 OBJECT_ID = [a-z][0-9a-zA-Z_]*
 TYPE_ID = [A-Z][0-9a-zA-Z_]*
-
+OPEN_STRING = \"
 
 
 
@@ -115,7 +115,10 @@ NEWLINE = \n
 CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
-STRING_W_QUOTES = [^\"]*[\"] 
+STR_CONTENT = [^\"|^\n]
+NEWLINE = \n
+CLOSE_STRING = \"
+    //STRING_W_QUOTES = [^\"]*[\"] 
 
 
 
@@ -145,6 +148,9 @@ STRING_W_QUOTES = [^\"]*[\"]
     commentdepth += 1; 
     yybegin(COMMENT);
 }
+<YYINITIAL>{OPEN_STRING} {
+    yybegin(STRING);
+}
 
 <COMMENT>{NEWLINE} { curr_lineno += 1; }
 <COMMENT>{OPEN_COMMENT} { commentdepth += 1; }
@@ -156,7 +162,9 @@ STRING_W_QUOTES = [^\"]*[\"]
 }
 <COMMENT>{CONTENT} { }
 
-
+<STRING>{STR_CONTENT}* { }
+<STRING>{NEWLINE} { curr_lineno += 1; }
+<STRING>{CLOSE_STRING} { yybegin(YYINITIAL); }
     
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 
