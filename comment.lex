@@ -1,1 +1,3 @@
-(* This is a test (* of a nested comment *) more shit *)
+-- This is a test
+(* This is another 
+test *)
