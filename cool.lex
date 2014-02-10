@@ -172,8 +172,8 @@ CLOSE_STRING = \"
 
 <STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
 
-<STRING>{NEWLINE}      { curr_lineno += 1; yybegin(INITIAL);
-                           return new Symbol(TokenConstant.ERROR, "Unterminated string constant."); }
+<STRING>{NEWLINE}      { curr_lineno += 1; yybegin(YYINITIAL);
+                           return new Symbol(TokenConstants.ERROR, "Unterminated string constant."); }
 
 <STRING>{NEWLINEPLUS}  { curr_lineno += 1; string_buf.append("\n"); }
 
