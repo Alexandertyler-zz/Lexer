@@ -98,11 +98,6 @@ OPEN_STRING = [\"]
 
 
 
-
-
-
-
-
 /* This defines a new start condition for line comments.
  * .
  * Hint: You might need additional start conditions. */
@@ -114,12 +109,22 @@ OPEN_COMMENT = "(*"
 NEWLINE = \n
 CONTENT = [^"*)"|^"(*"|^\n]
 
+
+
+
+
 %state STRING
 STR_CONTENT = [^\"|^\\n|^\\x00]
-NEWLINE = \n
+NEWLINE = \\n
+
     //NULL = \\x00
 CLOSE_STRING = \"
-    //STRING_W_QUOTES = [^\"]*[\"]
+
+
+
+
+
+
 
 
 
@@ -167,9 +172,18 @@ CLOSE_STRING = \"
 <STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
 
 <STRING>{NEWLINE} { curr_lineno += 1; }
-<STRING>{CLOSE_STRING} { yybegin(YYINITIAL); return new Symbol(TokenConstants.STR_CONST,
-                        AbstractTable.stringtable.addString(string_buf.toString())); }
-    
+
+<STRING>{CLOSE_STRING} { yybegin(YYINITIAL); 
+                        String output = string_buf.toString();
+                        if (output.length() >= MAX_STR_CONST) {
+                            return new Symbol(TokenConstants.ERROR("String constant too long.");
+                        } else {
+                            return new Symbol(TokenConstants.STR_CONST,
+                                AbstractTable.stringtable.addString(string_buf.toString())); }
+                        }
+
+
+ 
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 
 
