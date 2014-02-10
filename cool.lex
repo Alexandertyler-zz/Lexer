@@ -115,8 +115,8 @@ CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
 STR_CONTENT = [^\"|^\\n|^\\x00]
-NEWLINE = \\n
-
+NEWLINE = \\n //this is okay because it is an escaped newline
+              //you still add the newline into the string though
     //NULL = \\x00
 CLOSE_STRING = \"
 
@@ -171,12 +171,12 @@ CLOSE_STRING = \"
 
 <STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
 
-<STRING>{NEWLINE} { curr_lineno += 1; }
+<STRING>{NEWLINE} { curr_lineno += 1; string_buf.append("/n"); }
 
 <STRING>{CLOSE_STRING} { yybegin(YYINITIAL); 
                         String output = string_buf.toString();
                         if (output.length() >= MAX_STR_CONST) {
-                            return new Symbol(TokenConstants.ERROR("String constant too long.");
+                            return new Symbol(TokenConstants.ERROR, "String constant too long.");
                         } else {
                             return new Symbol(TokenConstants.STR_CONST,
                                 AbstractTable.stringtable.addString(string_buf.toString())); }
