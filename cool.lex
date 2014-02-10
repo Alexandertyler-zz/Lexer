@@ -93,7 +93,7 @@ OPEN_COMMENT = "(*"
     //CLOSE_COMMENT = "*)"
 OBJECT_ID = [a-z][0-9a-zA-Z_]*
 TYPE_ID = [A-Z][0-9a-zA-Z_]*
-OPEN_STRING = \"
+OPEN_STRING = [\"]
 
 
 
@@ -115,10 +115,11 @@ NEWLINE = \n
 CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
-STR_CONTENT = [^\"|^\n]
-NEWLINE = \n
+STR_CONTENT = [^\"|^\\n|^\\x00]
+NEWLINE = \\n
+NULL = \\x00
 CLOSE_STRING = \"
-    //STRING_W_QUOTES = [^\"]*[\"] 
+    //STRING_W_QUOTES = [^\"]*[\"]
 
 
 
@@ -149,6 +150,7 @@ CLOSE_STRING = \"
     yybegin(COMMENT);
 }
 <YYINITIAL>{OPEN_STRING} {
+    string_buf = new StringBuffer();
     yybegin(STRING);
 }
 
@@ -162,9 +164,11 @@ CLOSE_STRING = \"
 }
 <COMMENT>{CONTENT} { }
 
-<STRING>{STR_CONTENT}* { }
+<STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
+<STRING>{NULL} { return new Symbol(TokenConstants.ERROR, "Null character present in String"); }
 <STRING>{NEWLINE} { curr_lineno += 1; }
-<STRING>{CLOSE_STRING} { yybegin(YYINITIAL); }
+<STRING>{CLOSE_STRING} { yybegin(YYINITIAL); return new Symbol(TokenConstants.STR_CONST,
+                        AbstractTable.stringtable.addString(string_buf.toString())); }
     
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 
