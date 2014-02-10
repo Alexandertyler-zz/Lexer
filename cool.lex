@@ -87,7 +87,7 @@ import java_cup.runtime.Symbol;
 VTAB = \x0b
 /* Define names for regular expressions here. */
 NEWLINE		= [\n]
-WHITESPACE	= [" "|\b|\t|\r|\f|\x0b]+ /* Fill-in here. */
+WHITESPACE	= [" "|\b|\t|\r|\f]+ /* Fill-in here. */
 LINE_COMMENT = "--"[^\n]*\n
 OPEN_COMMENT = "(*"
     //CLOSE_COMMENT = "*)"
@@ -116,8 +116,8 @@ CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
 STR_CONTENT = [^\"|^\\n|^\\x00]
-NEWLINE = \\n
-NULL = \\x00
+NEWLINE = \n
+    //NULL = \\x00
 CLOSE_STRING = \"
     //STRING_W_QUOTES = [^\"]*[\"]
 
@@ -141,7 +141,7 @@ CLOSE_STRING = \"
 
 <YYINITIAL>{NEWLINE}	 { curr_lineno += 1; } 
 <YYINITIAL>{WHITESPACE} { /* Skip */ } 
-<YYINITIAL>{VTAB} { curr_lineno + 1; }
+<YYINITIAL>{VTAB} { curr_lineno += 1; }
 <YYINITIAL>{LINE_COMMENT}  {  
     curr_lineno += 1; 
 } 
@@ -165,7 +165,7 @@ CLOSE_STRING = \"
 <COMMENT>{CONTENT} { }
 
 <STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
-<STRING>{NULL} { return new Symbol(TokenConstants.ERROR, "Null character present in String"); }
+
 <STRING>{NEWLINE} { curr_lineno += 1; }
 <STRING>{CLOSE_STRING} { yybegin(YYINITIAL); return new Symbol(TokenConstants.STR_CONST,
                         AbstractTable.stringtable.addString(string_buf.toString())); }
@@ -230,9 +230,9 @@ CLOSE_STRING = \"
 <YYINITIAL>"@"			{ return new Symbol(TokenConstants.AT); }
 <YYINITIAL>"}"			{ return new Symbol(TokenConstants.RBRACE); }
 <YYINITIAL>"{"			{ return new Symbol(TokenConstants.LBRACE); }
-
-
-
+<YYINITIAL>"<="                 { return new Symbol(TokenConstants.LE); }
+<YYINITIAL>"<-"                 { return new Symbol(TokenConstants.ASSIGN); }
+<YYINITIAL>.                    { return new Symbol(TokenConstants.ERROR, yytext()); }
 
 .                { /*
                     *  This should be the very last rule and will match
