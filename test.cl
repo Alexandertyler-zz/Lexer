@@ -91,7 +91,7 @@ class Main {
                         countdown <- countdown - 1;
                     
                 pool
-            );  (* end let countdown
+            );  (* end let countdown *)
             self;
         }
     };
@@ -101,11 +101,15 @@ class Main {
 
 --Testing Strings
 "Test string number 1"
-"Test string 2 \
-number 3."
+"Test string \n number 2."
+"Test string \p number 3"
+"ab\\"
+
 "Test string number 4
-"Test string number     5"
+"Test string number	5"
 "Test string number 6"
+--Overflowing string
+"looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooolooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooolooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooolooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooolooooooooooooooooooooooooooooooooooooooooooooooooooooooooloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool"
 
 -- This is a test
 (* This is another 
@@ -113,3 +117,20 @@ number 3."
 (* deep test (* we must go deeper *) test *)
 (* Unclosed comment test
 
+--inserting our code from the last project
+
+class Test inherits IO{
+
+    LessThanEq() : Int {
+        {
+            let i : Int <- 0 in {
+                let j : Int <- 1 in {
+                    out_string(i<=j);
+                };
+            };
+        }
+    };
+
+
+
+}

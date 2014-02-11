@@ -120,6 +120,7 @@ ACCEPTED = \\.
 NULL = \0
 STRINGNULL = \\0
 CLOSE_STRING = \"
+/* DOUBLESLASH = */
 
 /* Define lexical rules after the %% separator.  There is some code
 * provided for you that you may wish to use, but you may change it
@@ -167,12 +168,12 @@ CLOSE_STRING = \"
 <STRING>{NEWLINE} { /* Error case where there's a newline in a string without a / */
     curr_lineno += 1; 
     yybegin(YYINITIAL);
-    return new Symbol(TokenConstants.ERROR, "Unterminated string constant.");
+    return new Symbol(TokenConstants.ERROR, "Unterminated string constant");
 }
 <STRING>{NULL} { /* Error if null character is in a string */
     curr_lineno += 1; 
     yybegin(YYINITIAL);
-    return new Symbol(TokenConstants.ERROR, "String contains null character."); 
+    return new Symbol(TokenConstants.ERROR, "String contains null character"); 
 }
 <STRING>{STRINGNULL} { /* Processes /0, not the null character */ string_buf.append("0"); }
 <STRING>{NEWLINEPLUS} { /* Properly formatted newline in a string */
@@ -187,14 +188,17 @@ CLOSE_STRING = \"
     else if (output.equals("\\n")) string_buf.append("\n");
     else string_buf.append(output.substring(1,2));
 }
+
+
 <STRING>{CLOSE_STRING} { /* Returns String, checks to make sure string isn't too long */
     yybegin(YYINITIAL); 
     String output = string_buf.toString();
     if (output.length() >= MAX_STR_CONST) 
-        return new Symbol(TokenConstants.ERROR, "String constant too long.");
+        return new Symbol(TokenConstants.ERROR, "String constant too long");
     else 
         return new Symbol(TokenConstants.STR_CONST, AbstractTable.stringtable.addString(string_buf.toString())); 
 }
+
 
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
 <YYINITIAL>[0-9][0-9]*  { /* Integers */
