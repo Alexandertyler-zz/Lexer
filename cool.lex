@@ -117,6 +117,8 @@ CONTENT = [^"*)"|^"(*"|^\n]
 STR_CONTENT = [^\"|^\\\n|^\\\x00]
 NEWLINE = \n 
 NEWLINEPLUS = \\\n
+ACCEPTED = \\[\t|\b|\f]
+ACCEPTEDPLUS = [\t|\b|\f]
 NULL = \x00
 CLOSE_STRING = \"
 
@@ -175,6 +177,12 @@ CLOSE_STRING = \"
                            return new Symbol(TokenConstants.ERROR, "Unterminated string constant."); }
 
 <STRING>{NEWLINEPLUS}  { curr_lineno += 1; string_buf.append("\n"); }
+
+<STRING>{ACCEPTED}     { String output = yytext();
+                         string_buf.append(output.substring(3, 3)); }
+
+<STRING>{ACCEPTEDPLUS}  { String output = yytext();
+                         string_buf.append(output.substring(1, 1)); }
 
 <STRING>{CLOSE_STRING} { yybegin(YYINITIAL); 
                         String output = string_buf.toString();
