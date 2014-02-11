@@ -96,3 +96,20 @@ class Main {
         }
     };
 };
+
+--This is our own testing code now
+
+--Testing Strings
+"Test string number 1"
+"Test string 2 \
+number 3."
+"Test string number 4
+"Test string number     5"
+"Test string number 6"
+
+-- This is a test
+(* This is another 
+ test *)
+(* deep test (* we must go deeper *) test *)
+(* Unclosed comment test
+
