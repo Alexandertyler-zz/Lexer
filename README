@@ -134,4 +134,9 @@ a "(*". Once in COMMENT we implemented a method of tracking parens to allow for 
 comments.  If the amount of parens don't match up we throw an error and return control to
 YYINITIAL. 
 Our next state that we implemented was STRING. This handles cases of strings that are
-enclosed in quotes. We test for instances of 
+enclosed in quotes. We test for instances of special escape characters by using a triple
+backslash. We use an automatic instertion of characters into a string buffer then output
+them into a new token. 
+We also added the last couple of missing double character regex, and changed the EOF cases
+for our other two states. They send an error token then break from the switch statement and 
+reutrn control to the lexer. 
