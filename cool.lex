@@ -74,7 +74,7 @@ import java_cup.runtime.Symbol;
     case STRING:
         if (!eof_reached) {
             eof_reached = true;
-            return new Symbol(TokenConstants.ERROR, "EOF in string");
+            return new Symbol(TokenConstants.ERROR, "EOF in string constant");
         } else break;
     }
     return new Symbol(TokenConstants.EOF);
@@ -90,6 +90,7 @@ NEWLINE		= [\n]
 WHITESPACE	= [" "|\b|\t|\r|\f]+
 LINE_COMMENT = "--"[^\n]*\n
 OPEN_COMMENT = "(*"
+CLOSE_COMMENT = "*)"
 OBJECT_ID = [a-z][0-9a-zA-Z_]*
 TYPE_ID = [A-Z][0-9a-zA-Z_]*
 OPEN_STRING = [\"]
@@ -109,11 +110,12 @@ NEWLINE = \n
 CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
-STR_CONTENT = [^\"|^\\\n|^\0]
+STR_CONTENT = [^\"|^\\\n|^\0|^\\0]
 NEWLINE = \n 
 NEWLINEPLUS = \\\n
 ACCEPTED = \\.
 NULL = \0
+STRINGNULL = \\0
 CLOSE_STRING = \"
 
 /* Define lexical rules after the %% separator.  There is some code
@@ -142,6 +144,9 @@ CLOSE_STRING = \"
     commentdepth += 1; 
     yybegin(COMMENT);
 }
+<YYINITIAL>{CLOSE_COMMENT} {
+    return new Symbol(TokenConstants.ERROR, "Unmatched *)");
+}
 <YYINITIAL>{OPEN_STRING} {
     string_buf = new StringBuffer();
     yybegin(STRING);
@@ -164,7 +169,7 @@ CLOSE_STRING = \"
 
 <STRING>{NULL}         { curr_lineno += 1; yybegin(YYINITIAL);
     return new Symbol(TokenConstants.ERROR, "String contains null character."); }
-
+<STRING>{STRINGNULL}   { string_buf.append("0"); }
 <STRING>{NEWLINEPLUS}  { curr_lineno += 1; string_buf.append("\n"); }
 
 <STRING>{ACCEPTED} { String output = yytext();
