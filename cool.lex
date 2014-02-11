@@ -118,7 +118,7 @@ STR_CONTENT = [^\"|^\\\n|^\\\x00]
 NEWLINE = \n 
 NEWLINEPLUS = \\\n
 ACCEPTED = \\[\t|\b|\f]
-ACCEPTEDPLUS = [\t|\b|\f]
+ACCEPTEDPLUS = [\\t|\\b|\\f|\\n]
 NULL = \x00
 CLOSE_STRING = \"
 
