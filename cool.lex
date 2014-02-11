@@ -84,54 +84,57 @@ import java_cup.runtime.Symbol;
 %class CoolLexer
 %cup
 
-VTAB = \x0b
-/* Define names for regular expressions here. */
-NEWLINE		= [\n]
-WHITESPACE	= [" "|\b|\t|\r|\f]+
-LINE_COMMENT = "--"[^\n]*\n
+VTAB = \x0b 
+/* Define names for regular expressions here. */ 
+NEWLINE = [\n] 
+WHITESPACE = [" "|\b|\t|\r|\f]+ 
+/* Catches comments of the form --.... */ 
+LINE_COMMENT = "--"[^\n]*\n 
 OPEN_COMMENT = "(*"
-CLOSE_COMMENT = "*)"
-OBJECT_ID = [a-z][0-9a-zA-Z_]*
-TYPE_ID = [A-Z][0-9a-zA-Z_]*
+/* Throws an error if encountered in yyinitial */
+CLOSE_COMMENT = "*)" 
+OBJECT_ID = [a-z][0-9a-zA-Z_]*  
+TYPE_ID = [A-Z][0-9a-zA-Z_]* 
 OPEN_STRING = [\"]
 
 
-
-
 /* This defines a new start condition for line comments.
- * .
- * Hint: You might need additional start conditions. */
-
+* .
+* Hint: You might need additional start conditions. */
 
 %state COMMENT
 CLOSE_COMMENT = "*)"
 OPEN_COMMENT = "(*"
 NEWLINE = \n
+/* Matches anything else other than what we're looking for. */
 CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
-STR_CONTENT = [^\"|^\\\n|^\0|^\\0]
-NEWLINE = \n 
+/* Matches anything else other than what we're checking for. */
+CONTENT = [^\"|^\\\n|^\0|^\\0]
+NEWLINE = \n  
+/* Detects proper newlines. */
 NEWLINEPLUS = \\\n
 ACCEPTED = \\.
+/* Matches the null character. */
 NULL = \0
 STRINGNULL = \\0
 CLOSE_STRING = \"
 
 /* Define lexical rules after the %% separator.  There is some code
- * provided for you that you may wish to use, but you may change it
- * if you like.
- * .
- * Some things you must fill-in (not necessarily a complete list):
- *   + Handle (* *) comments.  These comments should be properly nested.
- *   + Some additional multiple-character operators may be needed.  One
- *     (DARROW) is provided for you.
- *   + Handle strings.  String constants adhere to C syntax and may
- *     contain escape sequences: \c is accepted for all characters c
- *     (except for \n \t \b \f) in which case the result is c.
- * .
- * The complete Cool lexical specification is given in the Cool
- * Reference Manual (CoolAid).  Please be sure to look there. */
+* provided for you that you may wish to use, but you may change it
+* if you like.
+* .
+* Some things you must fill-in (not necessarily a complete list):
+*   + Handle (* *) comments.  These comments should be properly nested.
+*   + Some additional multiple-character operators may be needed.  One
+*     (DARROW) is provided for you.
+*   + Handle strings.  String constants adhere to C syntax and may
+*     contain escape sequences: \c is accepted for all characters c
+*     (except for \n \t \b \f) in which case the result is c.
+* .
+* The complete Cool lexical specification is given in the Cool
+* Reference Manual (CoolAid).  Please be sure to look there. */
 %%
 
 <YYINITIAL>{NEWLINE}	 { curr_lineno += 1; } 
@@ -140,69 +143,63 @@ CLOSE_STRING = \"
 <YYINITIAL>{LINE_COMMENT}  {  
     curr_lineno += 1; 
 } 
-<YYINITIAL>{OPEN_COMMENT}  {
+<YYINITIAL>{OPEN_COMMENT}  { /* Starts comment state */
     commentdepth += 1; 
     yybegin(COMMENT);
 }
 <YYINITIAL>{CLOSE_COMMENT} {
     return new Symbol(TokenConstants.ERROR, "Unmatched *)");
 }
-<YYINITIAL>{OPEN_STRING} {
+<YYINITIAL>{OPEN_STRING} { /* Start string state */
     string_buf = new StringBuffer();
     yybegin(STRING);
 }
-
 <COMMENT>{NEWLINE} { curr_lineno += 1; }
-<COMMENT>{OPEN_COMMENT} { commentdepth += 1; }
-<COMMENT>{CLOSE_COMMENT} { 
+<COMMENT>{OPEN_COMMENT} { /* Allows for comment nesting */ commentdepth += 1; }
+<COMMENT>{CLOSE_COMMENT} { /* Checks if all comments are closed, if so, jump to yyinitial */
     commentdepth -= 1;
     if (commentdepth == 0) {
         yybegin(YYINITIAL);
     }    
 }
-<COMMENT>{CONTENT} { }
+<COMMENT>{CONTENT} { /* Skip comment content */ }
+<STRING>{CONTENT}* { string_buf.append(yytext()); }
+<STRING>{NEWLINE} { /* Error case where there's a newline in a string without a / */
+    curr_lineno += 1; 
+    yybegin(YYINITIAL);
+    return new Symbol(TokenConstants.ERROR, "Unterminated string constant.");
+}
+<STRING>{NULL} { /* Error if null character is in a string */
+    curr_lineno += 1; 
+    yybegin(YYINITIAL);
+    return new Symbol(TokenConstants.ERROR, "String contains null character."); 
+}
+<STRING>{STRINGNULL} { /* Processes /0, not the null character */ string_buf.append("0"); }
+<STRING>{NEWLINEPLUS} { /* Properly formatted newline in a string */
+    curr_lineno += 1; 
+    string_buf.append("\n"); 
+}
+<STRING>{ACCEPTED} { /* Processes special escaped characters */ 
+    String output = yytext();
+    if (output.equals("\\t")) string_buf.append("\t");
+    else if (output.equals("\\b")) string_buf.append("\b");
+    else if (output.equals("\\f")) string_buf.append("\f");
+    else if (output.equals("\\n")) string_buf.append("\n");
+    else string_buf.append(output.substring(1,2));
+}
+<STRING>{CLOSE_STRING} { /* Returns String, checks to make sure string isn't too long */
+    yybegin(YYINITIAL); 
+    String output = string_buf.toString();
+    if (output.length() >= MAX_STR_CONST) 
+        return new Symbol(TokenConstants.ERROR, "String constant too long.");
+    else 
+        return new Symbol(TokenConstants.STR_CONST, AbstractTable.stringtable.addString(string_buf.toString())); 
+}
 
-<STRING>{STR_CONTENT}* { string_buf.append(yytext()); }
-
-<STRING>{NEWLINE}      { curr_lineno += 1; yybegin(YYINITIAL);
-                           return new Symbol(TokenConstants.ERROR, "Unterminated string constant."); }
-
-<STRING>{NULL}         { curr_lineno += 1; yybegin(YYINITIAL);
-    return new Symbol(TokenConstants.ERROR, "String contains null character."); }
-<STRING>{STRINGNULL}   { string_buf.append("0"); }
-<STRING>{NEWLINEPLUS}  { curr_lineno += 1; string_buf.append("\n"); }
-
-<STRING>{ACCEPTED} { String output = yytext();
-                         if (output.equals("\\t")) string_buf.append("\t");
-                         else if (output.equals("\\b")) string_buf.append("\b");
-                         else if (output.equals("\\f")) string_buf.append("\f");
-                         else if (output.equals("\\n")) string_buf.append("\n");
-                         else string_buf.append(output.substring(1,2)); }
-
-<STRING>{CLOSE_STRING} { yybegin(YYINITIAL); 
-                        String output = string_buf.toString();
-                        if (output.length() >= MAX_STR_CONST) {
-                            return new Symbol(TokenConstants.ERROR, "String constant too long.");
-                        } else {
-                            return new Symbol(TokenConstants.STR_CONST,
-                                AbstractTable.stringtable.addString(string_buf.toString())); }
-                        }
-
-
- 
 <YYINITIAL>"=>"		{ return new Symbol(TokenConstants.DARROW); }
-
-
-
-
-
 <YYINITIAL>[0-9][0-9]*  { /* Integers */
                           return new Symbol(TokenConstants.INT_CONST,
 					    AbstractTable.inttable.addString(yytext())); }
-
-
-
-
 
 <YYINITIAL>[Cc][Aa][Ss][Ee]	{ return new Symbol(TokenConstants.CASE); }
 <YYINITIAL>[Cc][Ll][Aa][Ss][Ss] { return new Symbol(TokenConstants.CLASS); }
@@ -223,17 +220,12 @@ CLOSE_STRING = \"
 <YYINITIAL>[Tt][Hh][Ee][Nn]   	{ return new Symbol(TokenConstants.THEN); }
 <YYINITIAL>t[Rr][Uu][Ee]	{ return new Symbol(TokenConstants.BOOL_CONST, Boolean.TRUE); }
 <YYINITIAL>[Ww][Hh][Ii][Ll][Ee] { return new Symbol(TokenConstants.WHILE); }
-
-<YYINITIAL>{OBJECT_ID}  {
+<YYINITIAL>{OBJECT_ID}  { /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 <YYINITIAL>{TYPE_ID}  {
     return new Symbol(TokenConstants.TYPEID, AbstractTable.idtable.addString(yytext()));
 }
-
-
-
-
 <YYINITIAL>"+"			{ return new Symbol(TokenConstants.PLUS); }
 <YYINITIAL>"/"			{ return new Symbol(TokenConstants.DIV); }
 <YYINITIAL>"-"			{ return new Symbol(TokenConstants.MINUS); }

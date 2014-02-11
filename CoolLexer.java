@@ -85,7 +85,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 	private final int COMMENT = 1;
 	private final int yy_state_dtrans[] = {
 		0,
-		85,
+		86,
 		56
 	};
 	private void yybegin (int state) {
@@ -312,8 +312,8 @@ class CoolLexer implements java_cup.runtime.Scanner {
 		/* 82 */ YY_NO_ANCHOR,
 		/* 83 */ YY_NO_ANCHOR,
 		/* 84 */ YY_NO_ANCHOR,
-		/* 85 */ YY_NOT_ACCEPT,
-		/* 86 */ YY_NO_ANCHOR,
+		/* 85 */ YY_NO_ANCHOR,
+		/* 86 */ YY_NOT_ACCEPT,
 		/* 87 */ YY_NO_ANCHOR,
 		/* 88 */ YY_NO_ANCHOR,
 		/* 89 */ YY_NO_ANCHOR,
@@ -400,10 +400,10 @@ class CoolLexer implements java_cup.runtime.Scanner {
 		/* 170 */ YY_NO_ANCHOR
 	};
 	private int yy_cmap[] = unpackFromString(1,130,
-"13,12:7,15:2,1,3,15,11,12:18,15,12,9,12:5,6,8,7,56,61,4,59,57,10,18:9,63,62" +
-",58,16,17,12,64,20,55,19,33,22,25,55,28,26,55:2,23,55,27,32,34,55,29,21,30," +
-"37,31,35,55:3,12,14,12,5,54,12,38,39,40,41,42,24,39,43,44,39:2,45,39,46,47," +
-"48,39,49,50,36,51,52,53,39:3,66,2,65,60,12,0:2")[0];
+"12,10:7,15:2,1,3,15,11,10:18,15,10,9,10:5,6,8,7,56,61,4,59,57,14,18:9,63,62" +
+",58,16,17,10,64,20,55,19,33,22,25,55,28,26,55:2,23,55,27,32,34,55,29,21,30," +
+"37,31,35,55:3,10,13,10,5,54,10,38,39,40,41,42,24,39,43,44,39:2,45,39,46,47," +
+"48,39,49,50,36,51,52,53,39:3,66,2,65,60,10,0:2")[0];
 
 	private int yy_rmap[] = unpackFromString(1,171,
 "0,1:2,2,1,3,1,4,5,1:2,6,7,8,9,1:2,10,1:11,11,12,13,12,1:3,12:9,11,12,11,12:" +
@@ -414,65 +414,65 @@ class CoolLexer implements java_cup.runtime.Scanner {
 "3,104")[0];
 
 	private int yy_nxt[][] = unpackFromString(105,67,
-"1,2,3,4,5,6,7,8,9,10,11,3,6:3,3,12,6,11,13,160:2,162,120,14,64,86,122,160:2" +
-",164,160,89,160,166,168,65,160,161:2,163,161,165,161,87,121,123,90,167,161:" +
-"4,169,6,160,15,16,17,18,19,20,21,22,23,24,25,-1:69,3,-1:8,3,-1:3,3,-1:55,63" +
-",-1:69,26,-1:67,27,-1:68,11,-1:7,11,-1:65,28,-1:59,160,-1:7,160:2,124,160:2" +
-",126,160:14,124,160:6,126,160:10,-1:21,161,-1:7,161:2,170,161:5,29,161:11,1" +
-"70,161:5,29,161:11,-1:15,33,-1:11,34,-1:60,161,-1:7,161:38,-1:21,160,-1:7,1" +
-"60:38,-1:21,160,-1:7,160:10,146,160:14,146,160:12,-1:11,1,57,52,84:2,52,84:" +
-"3,58,52,84:2,59,91,84:52,-1,35,63:65,-1:10,160,-1:7,160:8,66,160:17,66,160:" +
-"11,-1:21,161,-1:7,161:10,125,127,161:13,125,161:5,127,161:6,-1:21,161,-1:7," +
-"161:10,151,161:14,151,161:12,-1:18,54,-1:62,84:2,-1,84:3,-1:2,84:2,-1:2,84:" +
-"52,1,51,52,53:2,52,83,88,52,53:58,-1:10,160,-1:7,160:3,134,160:2,30:2,160,3" +
-"1,160:18,31,160:3,134,160:5,-1:21,161,-1:7,161:3,137,161:2,67:2,161,68,161:" +
-"18,68,161:3,137,161:5,-1:19,55,-1:68,160,-1:7,160:6,32:2,160:30,-1:21,161,-" +
-"1:7,161:6,69:2,161:30,-1:12,60,61:8,62,-1,61:55,-1:10,160,-1:7,160:12,36,16" +
-"0:5,36,160:19,-1:21,161,-1:7,161:12,70,161:5,70,161:19,-1:21,160,-1:7,160:1" +
-"7,37,160:17,37,160:2,-1:21,161,-1:7,161:17,71,161:17,71,161:2,-1:21,160,-1:" +
-"7,160:12,38,160:5,38,160:19,-1:21,161,-1:7,161:12,72,161:5,72,161:19,-1:21," +
-"160,-1:7,160:4,39,160:19,39,160:13,-1:21,161,-1:7,161:9,77,161:18,77,161:9," +
-"-1:21,160,-1:7,160,40,160:20,40,160:15,-1:21,161,-1:7,161:4,45,161:19,45,16" +
-"1:13,-1:21,160,-1:7,160:4,41,160:19,41,160:13,-1:21,161,-1:7,161:4,73,161:1" +
-"9,73,161:13,-1:21,160,-1:7,160:16,42,160:13,42,160:7,-1:21,161,-1:7,161,74," +
-"161:20,74,161:15,-1:21,160,-1:7,160:9,43,160:18,43,160:9,-1:21,161,-1:7,161" +
-":4,75,161:19,75,161:13,-1:21,160,-1:7,160:5,44,160:21,44,160:10,-1:21,161,-" +
-"1:7,161:16,76,161:13,76,161:7,-1:21,160,-1:7,160:3,46,160:28,46,160:5,-1:21" +
-",161,-1:7,161:5,78,161:21,78,161:10,-1:21,160,-1:7,160:4,48,160:19,48,160:1" +
-"3,-1:21,161,-1:7,161:4,47,161:19,47,161:13,-1:21,160,-1:7,160:15,49,160:7,4" +
-"9,160:14,-1:21,161,-1:7,161:3,79,161:28,79,161:5,-1:21,160,-1:7,160:3,50,16" +
-"0:28,50,160:5,-1:21,161,-1:7,161:4,80,161:19,80,161:13,-1:21,161,-1:7,161:1" +
-"5,81,161:7,81,161:14,-1:21,161,-1:7,161:3,82,161:28,82,161:5,-1:21,160,-1:7" +
-",160:4,92,160:9,132,160:9,92,160:4,132,160:8,-1:21,161,-1:7,161:4,93,161:9," +
-"139,161:9,93,161:4,139,161:8,-1:21,160,-1:7,160:4,94,160:9,96,160:9,94,160:" +
-"4,96,160:8,-1:21,161,-1:7,161:4,95,161:9,97,161:9,95,161:4,97,161:8,-1:21,1" +
-"60,-1:7,160:3,98,160:28,98,160:5,-1:21,161,-1:7,161:4,99,161:19,99,161:13,-" +
-"1:21,160,-1:7,160:2,142,160:17,142,160:17,-1:21,161,-1:7,161:19,101,161:13," +
-"101,161:4,-1:21,160,-1:7,160:2,100,160:17,100,160:17,-1:21,161,-1:7,161:3,1" +
-"03,161:28,103,161:5,-1:21,160,-1:7,160:3,102,160:28,102,160:5,-1:21,161,-1:" +
-"7,161:2,147,161:17,147,161:17,-1:21,160,-1:7,160:14,104,160:14,104,160:8,-1" +
-":21,161,-1:7,161:2,105,161:17,105,161:17,-1:21,160,-1:7,160:13,144,160:20,1" +
-"44,160:3,-1:21,161,-1:7,161:3,107,161:28,107,161:5,-1:21,160,-1:7,160:4,106" +
-",160:19,106,160:13,-1:21,161,-1:7,161:13,149,161:20,149,161:3,-1:21,160,-1:" +
-"7,160:14,108,160:14,108,160:8,-1:21,161,-1:7,161:14,109,161:14,109,161:8,-1" +
-":21,160,-1:7,160:8,148,160:17,148,160:11,-1:21,161,-1:7,161:14,111,161:14,1" +
-"11,161:8,-1:21,160,-1:7,160:3,110,160:28,110,160:5,-1:21,161,-1:7,161:8,153" +
-",161:17,153,161:11,-1:21,160,-1:7,160:14,150,160:14,150,160:8,-1:21,161,-1:" +
-"7,161:3,113,161:28,113,161:5,-1:21,160,-1:7,160:4,152,160:19,152,160:13,-1:" +
-"21,161,-1:7,161:3,115,161:28,115,161:5,-1:21,160,-1:7,160:5,112,160:21,112," +
-"160:10,-1:21,161,-1:7,161:14,155,161:14,155,161:8,-1:21,160,-1:7,160:8,114," +
-"160:17,114,160:11,-1:21,161,-1:7,161:4,157,161:19,157,161:13,-1:21,160,-1:7" +
-",160:11,154,160:19,154,160:6,-1:21,161,-1:7,161:5,117,161:21,117,161:10,-1:" +
-"21,160,-1:7,160:8,156,160:17,156,160:11,-1:21,161,-1:7,161:8,118,161:17,118" +
-",161:11,-1:21,160,-1:7,160:12,116,160:5,116,160:19,-1:21,161,-1:7,161:11,15" +
-"8,161:19,158,161:6,-1:21,161,-1:7,161:8,159,161:17,159,161:11,-1:21,161,-1:" +
-"7,161:12,119,161:5,119,161:19,-1:21,160,-1:7,160:3,128,160,130,160:21,130,1" +
-"60:4,128,160:5,-1:21,161,-1:7,161:2,129,161:2,131,161:14,129,161:6,131,161:" +
-"10,-1:21,160,-1:7,160:10,136,160:14,136,160:12,-1:21,161,-1:7,161:3,133,161" +
-",135,161:21,135,161:4,133,161:5,-1:21,160,-1:7,160:14,138,160:14,138,160:8," +
-"-1:21,161,-1:7,161:14,141,161:14,141,161:8,-1:21,160,-1:7,160:10,140,160:14" +
-",140,160:12,-1:21,161,-1:7,161:10,143,161:14,143,161:12,-1:21,161,-1:7,161:" +
-"5,145,161:21,145,161:10,-1:11");
+"1,2,3,4,5,6,7,8,9,10,6,3,6:2,11,3,12,6,11,13,160:2,162,120,14,64,87,122,160" +
+":2,164,160,90,160,166,168,65,160,161:2,163,161,165,161,88,121,123,91,167,16" +
+"1:4,169,6,160,15,16,17,18,19,20,21,22,23,24,25,-1:69,3,-1:8,3,-1:3,3,-1:55," +
+"63,-1:69,26,-1:67,27,-1:72,11,-1:3,11,-1:65,28,-1:63,160,-1:3,160:2,124,160" +
+":2,126,160:14,124,160:6,126,160:10,-1:25,161,-1:3,161:2,170,161:5,29,161:11" +
+",170,161:5,29,161:11,-1:15,33,-1:11,34,-1:64,161,-1:3,161:38,-1:25,160,-1:3" +
+",160:38,-1:25,160,-1:3,160:10,146,160:14,146,160:12,-1:11,1,57,52,85:2,52,8" +
+"5:3,58,85:2,59,83,52,85:52,-1,35,63:65,-1:14,160,-1:3,160:8,66,160:17,66,16" +
+"0:11,-1:25,161,-1:3,161:10,125,127,161:13,125,161:5,127,161:6,-1:25,161,-1:" +
+"3,161:10,151,161:14,151,161:12,-1:12,60,61:9,-1,61:2,62,61:52,-1:7,54,-1:62" +
+",85:2,-1,85:3,-1,85:2,-1:3,85:52,1,51,52,53:2,52,84,89,53,52,53:2,52:3,53:5" +
+"2,-1:14,160,-1:3,160:3,134,160:2,30:2,160,31,160:18,31,160:3,134,160:5,-1:2" +
+"5,161,-1:3,161:3,137,161:2,67:2,161,68,161:18,68,161:3,137,161:5,-1:19,55,-" +
+"1:72,160,-1:3,160:6,32:2,160:30,-1:25,161,-1:3,161:6,69:2,161:30,-1:25,160," +
+"-1:3,160:12,36,160:5,36,160:19,-1:25,161,-1:3,161:12,70,161:5,70,161:19,-1:" +
+"25,160,-1:3,160:17,37,160:17,37,160:2,-1:25,161,-1:3,161:17,71,161:17,71,16" +
+"1:2,-1:25,160,-1:3,160:12,38,160:5,38,160:19,-1:25,161,-1:3,161:12,72,161:5" +
+",72,161:19,-1:25,160,-1:3,160:4,39,160:19,39,160:13,-1:25,161,-1:3,161:9,77" +
+",161:18,77,161:9,-1:25,160,-1:3,160,40,160:20,40,160:15,-1:25,161,-1:3,161:" +
+"4,45,161:19,45,161:13,-1:25,160,-1:3,160:4,41,160:19,41,160:13,-1:25,161,-1" +
+":3,161:4,73,161:19,73,161:13,-1:25,160,-1:3,160:16,42,160:13,42,160:7,-1:25" +
+",161,-1:3,161,74,161:20,74,161:15,-1:25,160,-1:3,160:9,43,160:18,43,160:9,-" +
+"1:25,161,-1:3,161:4,75,161:19,75,161:13,-1:25,160,-1:3,160:5,44,160:21,44,1" +
+"60:10,-1:25,161,-1:3,161:16,76,161:13,76,161:7,-1:25,160,-1:3,160:3,46,160:" +
+"28,46,160:5,-1:25,161,-1:3,161:5,78,161:21,78,161:10,-1:25,160,-1:3,160:4,4" +
+"8,160:19,48,160:13,-1:25,161,-1:3,161:4,47,161:19,47,161:13,-1:25,160,-1:3," +
+"160:15,49,160:7,49,160:14,-1:25,161,-1:3,161:3,79,161:28,79,161:5,-1:25,160" +
+",-1:3,160:3,50,160:28,50,160:5,-1:25,161,-1:3,161:4,80,161:19,80,161:13,-1:" +
+"25,161,-1:3,161:15,81,161:7,81,161:14,-1:25,161,-1:3,161:3,82,161:28,82,161" +
+":5,-1:25,160,-1:3,160:4,92,160:9,132,160:9,92,160:4,132,160:8,-1:25,161,-1:" +
+"3,161:4,93,161:9,139,161:9,93,161:4,139,161:8,-1:25,160,-1:3,160:4,94,160:9" +
+",96,160:9,94,160:4,96,160:8,-1:25,161,-1:3,161:4,95,161:9,97,161:9,95,161:4" +
+",97,161:8,-1:25,160,-1:3,160:3,98,160:28,98,160:5,-1:25,161,-1:3,161:4,99,1" +
+"61:19,99,161:13,-1:25,160,-1:3,160:2,142,160:17,142,160:17,-1:25,161,-1:3,1" +
+"61:19,101,161:13,101,161:4,-1:25,160,-1:3,160:2,100,160:17,100,160:17,-1:25" +
+",161,-1:3,161:3,103,161:28,103,161:5,-1:25,160,-1:3,160:3,102,160:28,102,16" +
+"0:5,-1:25,161,-1:3,161:2,147,161:17,147,161:17,-1:25,160,-1:3,160:14,104,16" +
+"0:14,104,160:8,-1:25,161,-1:3,161:2,105,161:17,105,161:17,-1:25,160,-1:3,16" +
+"0:13,144,160:20,144,160:3,-1:25,161,-1:3,161:3,107,161:28,107,161:5,-1:25,1" +
+"60,-1:3,160:4,106,160:19,106,160:13,-1:25,161,-1:3,161:13,149,161:20,149,16" +
+"1:3,-1:25,160,-1:3,160:14,108,160:14,108,160:8,-1:25,161,-1:3,161:14,109,16" +
+"1:14,109,161:8,-1:25,160,-1:3,160:8,148,160:17,148,160:11,-1:25,161,-1:3,16" +
+"1:14,111,161:14,111,161:8,-1:25,160,-1:3,160:3,110,160:28,110,160:5,-1:25,1" +
+"61,-1:3,161:8,153,161:17,153,161:11,-1:25,160,-1:3,160:14,150,160:14,150,16" +
+"0:8,-1:25,161,-1:3,161:3,113,161:28,113,161:5,-1:25,160,-1:3,160:4,152,160:" +
+"19,152,160:13,-1:25,161,-1:3,161:3,115,161:28,115,161:5,-1:25,160,-1:3,160:" +
+"5,112,160:21,112,160:10,-1:25,161,-1:3,161:14,155,161:14,155,161:8,-1:25,16" +
+"0,-1:3,160:8,114,160:17,114,160:11,-1:25,161,-1:3,161:4,157,161:19,157,161:" +
+"13,-1:25,160,-1:3,160:11,154,160:19,154,160:6,-1:25,161,-1:3,161:5,117,161:" +
+"21,117,161:10,-1:25,160,-1:3,160:8,156,160:17,156,160:11,-1:25,161,-1:3,161" +
+":8,118,161:17,118,161:11,-1:25,160,-1:3,160:12,116,160:5,116,160:19,-1:25,1" +
+"61,-1:3,161:11,158,161:19,158,161:6,-1:25,161,-1:3,161:8,159,161:17,159,161" +
+":11,-1:25,161,-1:3,161:12,119,161:5,119,161:19,-1:25,160,-1:3,160:3,128,160" +
+",130,160:21,130,160:4,128,160:5,-1:25,161,-1:3,161:2,129,161:2,131,161:14,1" +
+"29,161:6,131,161:10,-1:25,160,-1:3,160:10,136,160:14,136,160:12,-1:25,161,-" +
+"1:3,161:3,133,161,135,161:21,135,161:4,133,161:5,-1:25,160,-1:3,160:14,138," +
+"160:14,138,160:8,-1:25,161,-1:3,161:14,141,161:14,141,161:8,-1:25,160,-1:3," +
+"160:10,140,160:14,140,160:12,-1:25,161,-1:3,161:10,143,161:14,143,161:12,-1" +
+":25,161,-1:3,161:5,145,161:21,145,161:10,-1:11");
 
 	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
@@ -572,7 +572,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -10:
 						break;
 					case 10:
-						{
+						{ /* Start string state */
     string_buf = new StringBuffer();
     yybegin(STRING);
 }
@@ -595,7 +595,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -14:
 						break;
 					case 14:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -15:
@@ -645,7 +645,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -26:
 						break;
 					case 26:
-						{
+						{ /* Starts comment state */
     commentdepth += 1; 
     yybegin(COMMENT);
 }
@@ -764,15 +764,15 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -53:
 						break;
 					case 53:
-						{ }
+						{ /* Skip comment content */ }
 					case -54:
 						break;
 					case 54:
-						{ commentdepth += 1; }
+						{ /* Allows for comment nesting */ commentdepth += 1; }
 					case -55:
 						break;
 					case 55:
-						{ 
+						{ /* Checks if all comments are closed, if so, jump to yyinitial */
     commentdepth -= 1;
     if (commentdepth == 0) {
         yybegin(YYINITIAL);
@@ -785,41 +785,52 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -57:
 						break;
 					case 57:
-						{ curr_lineno += 1; yybegin(YYINITIAL);
-                           return new Symbol(TokenConstants.ERROR, "Unterminated string constant."); }
+						{ /* Error case where there's a newline in a string without a / */
+    curr_lineno += 1; 
+    yybegin(YYINITIAL);
+    return new Symbol(TokenConstants.ERROR, "Unterminated string constant.");
+}
 					case -58:
 						break;
 					case 58:
-						{ yybegin(YYINITIAL); 
-                        String output = string_buf.toString();
-                        if (output.length() >= MAX_STR_CONST) {
-                            return new Symbol(TokenConstants.ERROR, "String constant too long.");
-                        } else {
-                            return new Symbol(TokenConstants.STR_CONST,
-                                AbstractTable.stringtable.addString(string_buf.toString())); }
-                        }
+						{ /* Returns String, checks to make sure string isn't too long */
+    yybegin(YYINITIAL); 
+    String output = string_buf.toString();
+    if (output.length() >= MAX_STR_CONST) 
+        return new Symbol(TokenConstants.ERROR, "String constant too long.");
+    else 
+        return new Symbol(TokenConstants.STR_CONST, AbstractTable.stringtable.addString(string_buf.toString())); 
+}
 					case -59:
 						break;
 					case 59:
-						{ curr_lineno += 1; yybegin(YYINITIAL);
-    return new Symbol(TokenConstants.ERROR, "String contains null character."); }
+						{ /* Error if null character is in a string */
+    curr_lineno += 1; 
+    yybegin(YYINITIAL);
+    return new Symbol(TokenConstants.ERROR, "String contains null character."); 
+}
 					case -60:
 						break;
 					case 60:
-						{ curr_lineno += 1; string_buf.append("\n"); }
+						{ /* Properly formatted newline in a string */
+    curr_lineno += 1; 
+    string_buf.append("\n"); 
+}
 					case -61:
 						break;
 					case 61:
-						{ String output = yytext();
-                         if (output.equals("\\t")) string_buf.append("\t");
-                         else if (output.equals("\\b")) string_buf.append("\b");
-                         else if (output.equals("\\f")) string_buf.append("\f");
-                         else if (output.equals("\\n")) string_buf.append("\n");
-                         else string_buf.append(output.substring(1,2)); }
+						{ /* Processes special escaped characters */ 
+    String output = yytext();
+    if (output.equals("\\t")) string_buf.append("\t");
+    else if (output.equals("\\b")) string_buf.append("\b");
+    else if (output.equals("\\f")) string_buf.append("\f");
+    else if (output.equals("\\n")) string_buf.append("\n");
+    else string_buf.append(output.substring(1,2));
+}
 					case -62:
 						break;
 					case 62:
-						{ string_buf.append("0"); }
+						{ /* Processes /0, not the null character */ string_buf.append("0"); }
 					case -63:
 						break;
 					case 64:
@@ -829,7 +840,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -64:
 						break;
 					case 65:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -65:
@@ -911,47 +922,39 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -83:
 						break;
 					case 84:
-						{ string_buf.append(yytext()); }
+						{ /* Skip comment content */ }
 					case -84:
 						break;
-					case 86:
-						{
-    return new Symbol(TokenConstants.TYPEID, AbstractTable.idtable.addString(yytext()));
-}
+					case 85:
+						{ string_buf.append(yytext()); }
 					case -85:
 						break;
 					case 87:
 						{
-    return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
+    return new Symbol(TokenConstants.TYPEID, AbstractTable.idtable.addString(yytext()));
 }
 					case -86:
 						break;
 					case 88:
-						{ /*
-                    *  This should be the very last rule and will match
-                    *  everything not matched by other lexical rules.
-                    */
-                   System.err.println("LEXER BUG - UNMATCHED: " + yytext()); }
+						{ /* It's an object or type if undetected after the constants */
+    return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
+}
 					case -87:
 						break;
 					case 89:
-						{
-    return new Symbol(TokenConstants.TYPEID, AbstractTable.idtable.addString(yytext()));
-}
+						{ /* Skip comment content */ }
 					case -88:
 						break;
 					case 90:
 						{
-    return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
+    return new Symbol(TokenConstants.TYPEID, AbstractTable.idtable.addString(yytext()));
 }
 					case -89:
 						break;
 					case 91:
-						{ /*
-                    *  This should be the very last rule and will match
-                    *  everything not matched by other lexical rules.
-                    */
-                   System.err.println("LEXER BUG - UNMATCHED: " + yytext()); }
+						{ /* It's an object or type if undetected after the constants */
+    return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
+}
 					case -90:
 						break;
 					case 92:
@@ -961,7 +964,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -91:
 						break;
 					case 93:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -92:
@@ -973,7 +976,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -93:
 						break;
 					case 95:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -94:
@@ -985,7 +988,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -95:
 						break;
 					case 97:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -96:
@@ -997,7 +1000,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -97:
 						break;
 					case 99:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -98:
@@ -1009,7 +1012,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -99:
 						break;
 					case 101:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -100:
@@ -1021,7 +1024,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -101:
 						break;
 					case 103:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -102:
@@ -1033,7 +1036,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -103:
 						break;
 					case 105:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -104:
@@ -1045,7 +1048,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -105:
 						break;
 					case 107:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -106:
@@ -1057,7 +1060,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -107:
 						break;
 					case 109:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -108:
@@ -1069,7 +1072,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -109:
 						break;
 					case 111:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -110:
@@ -1081,7 +1084,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -111:
 						break;
 					case 113:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -112:
@@ -1093,7 +1096,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -113:
 						break;
 					case 115:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -114:
@@ -1105,19 +1108,19 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -115:
 						break;
 					case 117:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -116:
 						break;
 					case 118:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -117:
 						break;
 					case 119:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -118:
@@ -1129,7 +1132,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -119:
 						break;
 					case 121:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -120:
@@ -1141,7 +1144,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -121:
 						break;
 					case 123:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -122:
@@ -1153,7 +1156,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -123:
 						break;
 					case 125:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -124:
@@ -1165,7 +1168,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -125:
 						break;
 					case 127:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -126:
@@ -1177,7 +1180,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -127:
 						break;
 					case 129:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -128:
@@ -1189,7 +1192,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -129:
 						break;
 					case 131:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -130:
@@ -1201,7 +1204,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -131:
 						break;
 					case 133:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -132:
@@ -1213,7 +1216,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -133:
 						break;
 					case 135:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -134:
@@ -1225,7 +1228,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -135:
 						break;
 					case 137:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -136:
@@ -1237,7 +1240,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -137:
 						break;
 					case 139:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -138:
@@ -1249,7 +1252,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -139:
 						break;
 					case 141:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -140:
@@ -1261,7 +1264,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -141:
 						break;
 					case 143:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -142:
@@ -1273,7 +1276,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -143:
 						break;
 					case 145:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -144:
@@ -1285,7 +1288,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -145:
 						break;
 					case 147:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -146:
@@ -1297,7 +1300,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -147:
 						break;
 					case 149:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -148:
@@ -1309,7 +1312,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -149:
 						break;
 					case 151:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -150:
@@ -1321,7 +1324,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -151:
 						break;
 					case 153:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -152:
@@ -1333,7 +1336,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -153:
 						break;
 					case 155:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -154:
@@ -1345,19 +1348,19 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -155:
 						break;
 					case 157:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -156:
 						break;
 					case 158:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -157:
 						break;
 					case 159:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -158:
@@ -1369,7 +1372,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -159:
 						break;
 					case 161:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -160:
@@ -1381,7 +1384,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -161:
 						break;
 					case 163:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -162:
@@ -1393,7 +1396,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -163:
 						break;
 					case 165:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -164:
@@ -1405,7 +1408,7 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -165:
 						break;
 					case 167:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -166:
@@ -1417,13 +1420,13 @@ class CoolLexer implements java_cup.runtime.Scanner {
 					case -167:
 						break;
 					case 169:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -168:
 						break;
 					case 170:
-						{
+						{ /* It's an object or type if undetected after the constants */
     return new Symbol(TokenConstants.OBJECTID, AbstractTable.idtable.addString(yytext()));
 }
 					case -169:
