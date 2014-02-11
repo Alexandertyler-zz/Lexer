@@ -121,4 +121,17 @@ Instructions
 
 Write-up for PA2J
 -----------------
-
+Our implementation on project 2 began with a thorough analysis of the existing code
+and the documentation on JLex. After figuring out the three different main parts of
+the lexer, my partner and I set out to establish what was already implemented. Once
+we had a record of all included Regex and States, we decided to implement the COMMENT
+state. 
+Our line comments were included in YYINITIAL because they are completely
+disregarded. They match the regex for "--" and end on a newline. Anytime a newline is
+called, we increment the curr_lineno counter. For (* *) comments we had to implement
+a new state. Under YYINITIAL, we would transition states into COMMENT when we recognized
+a "(*". Once in COMMENT we implemented a method of tracking parens to allow for nested
+comments.  If the amount of parens don't match up we throw an error and return control to
+YYINITIAL. 
+Our next state that we implemented was STRING. This handles cases of strings that are
+enclosed in quotes. We test for instances of 
