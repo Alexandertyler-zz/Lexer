@@ -115,10 +115,9 @@ CONTENT = [^"*)"|^"(*"|^\n]
 
 %state STRING
 STR_CONTENT = [^\"|^\\\n|^\\\x00]
-NEWLINE = \n //this is okay because it is an escaped newline
-              //you still add the newline into the string though
-NEWLINEPLUS = \\n
-    //NULL = \\x00
+NEWLINE = \n 
+NEWLINEPLUS = \\\n
+NULL = \x00
 CLOSE_STRING = \"
 
 
