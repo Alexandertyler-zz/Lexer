@@ -69,12 +69,12 @@ import java_cup.runtime.Symbol;
     case COMMENT: 
         if (!eof_reached) {
             eof_reached = true;
-            return new Symbol(TokenConstants.ERROR, "EOF before closed comment");
+            return new Symbol(TokenConstants.ERROR, "EOF in comment");
         } else break;
     case STRING:
         if (!eof_reached) {
             eof_reached = true;
-            return new Symbol(TokenConstants.ERROR, "EOF before closed string");
+            return new Symbol(TokenConstants.ERROR, "EOF in string");
         } else break;
     }
     return new Symbol(TokenConstants.EOF);
@@ -87,10 +87,9 @@ import java_cup.runtime.Symbol;
 VTAB = \x0b
 /* Define names for regular expressions here. */
 NEWLINE		= [\n]
-WHITESPACE	= [" "|\b|\t|\r|\f]+ /* Fill-in here. */
+WHITESPACE	= [" "|\b|\t|\r|\f]+
 LINE_COMMENT = "--"[^\n]*\n
 OPEN_COMMENT = "(*"
-    //CLOSE_COMMENT = "*)"
 OBJECT_ID = [a-z][0-9a-zA-Z_]*
 TYPE_ID = [A-Z][0-9a-zA-Z_]*
 OPEN_STRING = [\"]
@@ -109,26 +108,13 @@ OPEN_COMMENT = "(*"
 NEWLINE = \n
 CONTENT = [^"*)"|^"(*"|^\n]
 
-
-
-
-
 %state STRING
-STR_CONTENT = [^\"|^\\\n|^\\\x00]
+STR_CONTENT = [^\"|^\\\n|^\0]
 NEWLINE = \n 
 NEWLINEPLUS = \\\n
-ACCEPTED = \\[\t|\b|\f]
-ACCEPTEDPLUS = [\\t|\\b|\\f|\\n]
-NULL = \x00
+ACCEPTED = \\.
+NULL = \0
 CLOSE_STRING = \"
-
-
-
-
-
-
-
-
 
 /* Define lexical rules after the %% separator.  There is some code
  * provided for you that you may wish to use, but you may change it
@@ -148,7 +134,7 @@ CLOSE_STRING = \"
 
 <YYINITIAL>{NEWLINE}	 { curr_lineno += 1; } 
 <YYINITIAL>{WHITESPACE} { /* Skip */ } 
-<YYINITIAL>{VTAB} { curr_lineno += 1; }
+<YYINITIAL>{VTAB} { /* Special case for VTAB, skip */ }
 <YYINITIAL>{LINE_COMMENT}  {  
     curr_lineno += 1; 
 } 
@@ -176,13 +162,17 @@ CLOSE_STRING = \"
 <STRING>{NEWLINE}      { curr_lineno += 1; yybegin(YYINITIAL);
                            return new Symbol(TokenConstants.ERROR, "Unterminated string constant."); }
 
+<STRING>{NULL}         { curr_lineno += 1; yybegin(YYINITIAL);
+    return new Symbol(TokenConstants.ERROR, "String contains null character."); }
+
 <STRING>{NEWLINEPLUS}  { curr_lineno += 1; string_buf.append("\n"); }
 
-<STRING>{ACCEPTED}     { String output = yytext();
-                         string_buf.append(output.substring(3, 3)); }
-
-<STRING>{ACCEPTEDPLUS}  { String output = yytext();
-                         string_buf.append(output.substring(1, 1)); }
+<STRING>{ACCEPTED} { String output = yytext();
+                         if (output.equals("\\t")) string_buf.append("\t");
+                         else if (output.equals("\\b")) string_buf.append("\b");
+                         else if (output.equals("\\f")) string_buf.append("\f");
+                         else if (output.equals("\\n")) string_buf.append("\n");
+                         else string_buf.append(output.substring(1,2)); }
 
 <STRING>{CLOSE_STRING} { yybegin(YYINITIAL); 
                         String output = string_buf.toString();

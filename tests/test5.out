@@ -40,9 +40,7 @@
 #17 '.'
 #17 OBJECTID concat
 #17 '('
-LEXER BUG - UNMATCHED: \
-LEXER BUG - UNMATCHED: n
-#17 STR_CONST ""
+#17 STR_CONST "\n"
 #17 ')'
 #17 ')'
 #17 ';'
@@ -345,4 +343,4 @@ LEXER BUG - UNMATCHED: n
 #92 POOL
 #93 ')'
 #93 ';'
-#98 ERROR "EOF before closed comment"
+#98 ERROR "EOF in comment"

@@ -320,9 +320,7 @@
 #60 ':'
 #60 TYPEID String
 #60 '{'
-LEXER BUG - UNMATCHED: n
-LEXER BUG - UNMATCHED: n
-#60 STR_CONST "do othig"
+#60 STR_CONST "do nothing"
 #60 '}'
 #60 ';'
 #62 '}'
